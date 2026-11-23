@@ -3,75 +3,32 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Zayan Gaming Zone</title>
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;background:#080808;color:white;
- font-family:Arial,sans-serif;
-}
-header{
- background:linear-gradient(120deg,#750000,#ed0000);
- padding:30px 15px;text-align:center;
-}
-header h1{font-size:32px;margin:0}
-nav{
- display:flex;justify-content:center;gap:20px;
- padding:15px;background:#171717;flex-wrap:wrap;
- position:sticky;top:0;z-index:5;
-}
-nav a{color:white;text-decoration:none;font-weight:bold}
+body{margin:0;background:#080808;color:white;font-family:Arial;text-align:center}
+header{background:linear-gradient(120deg,#700000,red);padding:28px 10px}
+header h1{margin:0;font-size:30px}
+nav{background:#181818;padding:15px;position:sticky;top:0}
+nav a{color:white;text-decoration:none;margin:12px;font-weight:bold}
 nav a:hover{color:red}
-.hero{text-align:center;padding:35px 10px}
-.hero h2{color:#ff2525;font-size:30px}
-.hero p{color:#bbb}
-.section-title{text-align:center;color:#ff2525}
-.games{
- display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
- gap:16px;padding:20px;max-width:1100px;margin:auto;
-}
-.card,.game-box{
- background:#191919;border:1px solid #333;
- border-radius:14px;padding:22px;text-align:center;
-}
-.card h3{font-size:21px}
-.card button,.game-box button{
- background:#ed0000;color:white;border:0;
- padding:12px 20px;border-radius:8px;
- cursor:pointer;font-size:15px;margin:5px;
-}
-button:hover{background:#a90000}
-.game-box{max-width:600px;margin:25px auto;display:none}
-.game-box.active{display:block}
-input{
- padding:12px;border-radius:6px;border:1px solid #555;
- background:#222;color:white;width:100px;
-}
-.result{color:#ff5555;font-weight:bold;min-height:25px}
-.cell{
- width:85px;height:85px;background:#292929;
- border:2px solid red;color:white;font-size:32px;
- border-radius:8px;cursor:pointer;
-}
-#board{
- display:grid;grid-template-columns:repeat(3,85px);
- justify-content:center;gap:7px;
-}
-.memory-grid{
- display:grid;grid-template-columns:repeat(4,65px);
- gap:8px;justify-content:center;
-}
-.memory-grid button{
- width:65px;height:65px;font-size:24px;
- padding:0;background:#333;
-}
-#snake{
- background:#101010;border:2px solid red;
- max-width:100%;touch-action:pan-y;
-}
-.controls button{min-width:48px}
-footer{text-align:center;padding:25px;color:#888}
+.hero{padding:35px 10px}
+.hero h2,.heading{color:#ff2929}
+button{background:#ed0000;color:white;border:0;padding:12px 18px;border-radius:8px;cursor:pointer;margin:5px;font-size:15px}
+button:hover{background:#a00000}
+.games{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:15px;padding:18px;max-width:1100px;margin:auto}
+.card,.game{background:#191919;border:1px solid #333;border-radius:14px;padding:22px}
+.game{max-width:550px;margin:25px auto;display:none}
+.game.active{display:block}
+.result{color:#ff5555;min-height:25px;font-weight:bold}
+input{padding:12px;width:100px;background:#222;color:white;border:1px solid red;border-radius:6px}
+#board{display:grid;grid-template-columns:repeat(3,80px);justify-content:center;gap:6px}
+.cell{width:80px;height:80px;font-size:30px;background:#292929;border:2px solid red}
+.memory{display:grid;grid-template-columns:repeat(4,60px);justify-content:center;gap:8px}
+.memory button{width:60px;height:60px;padding:0;font-size:24px}
+canvas{max-width:100%;background:#111;border:2px solid red;touch-action:pan-y}
+footer{padding:25px;color:#888}
 </style>
 </head>
 <body>
@@ -89,189 +46,149 @@ footer{text-align:center;padding:25px;color:#888}
 
 <section class="hero" id="home">
 <h2>WELCOME GAMER!</h2>
-<p>Play Free Online Games And Enjoy Your Time.</p>
-<button onclick="document.getElementById('games').scrollIntoView({behavior:'smooth'})"
-style="background:red;color:white;padding:14px 25px;border:0;border-radius:8px">
-EXPLORE GAMES
-</button>
+<p>Play Free Online Games</p>
+<button onclick="document.getElementById('games').scrollIntoView({behavior:'smooth'})">EXPLORE GAMES</button>
 </section>
 
-<h2 class="section-title" id="games">🎮 SELECT YOUR GAME</h2>
+<h2 class="heading" id="games">🎮 SELECT YOUR GAME</h2>
 
 <div class="games">
-<div class="card">
-<h3>✊ Rock Paper Scissors</h3>
-<p>Challenge the computer!</p>
-<button onclick="showGame('rps')">PLAY NOW</button>
-</div>
-<div class="card">
-<h3>❌ Tic Tac Toe</h3>
-<p>Play with a friend!</p>
-<button onclick="showGame('ttt')">PLAY NOW</button>
-</div>
-<div class="card">
-<h3>🐍 Snake Game</h3>
-<p>Eat and grow!</p>
-<button onclick="showGame('snakeGame')">PLAY NOW</button>
-</div>
-<div class="card">
-<h3>🧠 Memory Cards</h3>
-<p>Match the pairs!</p>
-<button onclick="showGame('memory')">PLAY NOW</button>
-</div>
-<div class="card">
-<h3>🔢 Number Guess</h3>
-<p>Find the secret number!</p>
-<button onclick="showGame('guess')">PLAY NOW</button>
-</div>
+<div class="card"><h3>✊ Rock Paper Scissors</h3><p>Beat the computer!</p><button onclick="openGame('rps')">PLAY NOW</button></div>
+<div class="card"><h3>❌ Tic Tac Toe</h3><p>Play with a friend!</p><button onclick="openGame('ttt')">PLAY NOW</button></div>
+<div class="card"><h3>🐍 Snake Game</h3><p>Eat and grow!</p><button onclick="openGame('snake')">PLAY NOW</button></div>
+<div class="card"><h3>🧠 Memory Cards</h3><p>Match the pairs!</p><button onclick="openGame('memoryGame')">PLAY NOW</button></div>
+<div class="card"><h3>🔢 Number Guess</h3><p>Find the secret number!</p><button onclick="openGame('guess')">PLAY NOW</button></div>
 </div>
 
-<div class="game-box" id="rps">
+<div class="game" id="rps">
 <h2>✊ Rock Paper Scissors</h2>
-<p>Choose your move!</p>
 <button onclick="playRPS('Rock')">✊ Rock</button>
 <button onclick="playRPS('Paper')">✋ Paper</button>
 <button onclick="playRPS('Scissors')">✌️ Scissors</button>
 <p class="result" id="rpsResult"></p>
-<button onclick="showGame('')">CLOSE GAME</button>
+<button onclick="closeGames()">CLOSE</button>
 </div>
 
-<div class="game-box" id="ttt">
+<div class="game" id="ttt">
 <h2>❌ Tic Tac Toe</h2>
 <p id="tttStatus">Player X's turn</p>
 <div id="board"></div>
 <button onclick="resetTTT()">RESTART</button>
-<button onclick="showGame('')">CLOSE GAME</button>
+<button onclick="closeGames()">CLOSE</button>
 </div>
 
-<div class="game-box" id="snakeGame">
+<div class="game" id="snake">
 <h2>🐍 Snake Game</h2>
 <p>Use arrow keys or buttons.</p>
-<canvas id="snake" width="300" height="300"></canvas>
-<p class="result" id="snakeScore">Score: 0</p>
+<canvas id="canvas" width="300" height="300"></canvas>
+<p id="snakeScore">Score: 0</p>
 <button onclick="startSnake()">START / RESTART</button>
-<div class="controls">
+<div>
 <button onclick="changeDir('up')">⬆️</button><br>
 <button onclick="changeDir('left')">⬅️</button>
 <button onclick="changeDir('down')">⬇️</button>
 <button onclick="changeDir('right')">➡️</button>
 </div>
-<button onclick="showGame('')">CLOSE GAME</button>
+<button onclick="closeGames()">CLOSE</button>
 </div>
 
-<div class="game-box" id="memory">
+<div class="game" id="memoryGame">
 <h2>🧠 Memory Cards</h2>
 <p id="memoryStatus">Find matching pairs!</p>
-<div class="memory-grid" id="memoryGrid"></div>
+<div class="memory" id="memoryGrid"></div>
 <button onclick="startMemory()">RESTART</button>
-<button onclick="showGame('')">CLOSE GAME</button>
+<button onclick="closeGames()">CLOSE</button>
 </div>
 
-<div class="game-box" id="guess">
+<div class="game" id="guess">
 <h2>🔢 Number Guess</h2>
-<p>Guess a number between 1 and 10.</p>
-<input type="number" id="guessInput" min="1" max="10">
+<p>Guess a number from 1 to 10</p>
+<input id="guessInput" type="number" min="1" max="10">
 <button onclick="playGuess()">GUESS</button>
 <p class="result" id="guessResult"></p>
 <button onclick="resetGuess()">NEW GAME</button>
-<button onclick="showGame('')">CLOSE GAME</button>
+<button onclick="closeGames()">CLOSE</button>
 </div>
 
-<section id="about" class="hero">
+<section class="hero" id="about">
 <h2>ABOUT US</h2>
 <p>Welcome to Zayan Gaming Zone!</p>
-<p>Enjoy free mini games and have fun.</p>
+<p>Enjoy free games and have fun.</p>
 </section>
 
-<footer>
-<p>© 2026 Zayan Gaming Zone</p>
-<p>Made with ❤️ by Zayan</p>
-</footer>
+<footer>© 2026 Zayan Gaming Zone<br>Made with ❤️ by Zayan</footer>
 
 <script>
-function showGame(id){
- document.querySelectorAll('.game-box').forEach(g=>g.classList.remove('active'));
- if(id){
-  document.getElementById(id).classList.add('active');
-  document.getElementById(id).scrollIntoView({behavior:'smooth'});
- }
+function openGame(id){
+ closeGames();
+ document.getElementById(id).classList.add('active');
+ document.getElementById(id).scrollIntoView({behavior:'smooth'});
+}
+function closeGames(){
+ document.querySelectorAll('.game').forEach(g=>g.classList.remove('active'));
 }
 
 // ROCK PAPER SCISSORS
 function playRPS(user){
- let choices=['Rock','Paper','Scissors'];
- let computer=choices[Math.floor(Math.random()*3)];
- let result=user===computer?'Draw!':
- (user==='Rock'&&computer==='Scissors'||
- user==='Paper'&&computer==='Rock'||
- user==='Scissors'&&computer==='Paper')?'You Win!':'Computer Wins!';
- document.getElementById('rpsResult').innerText=
- 'You: '+user+' | Computer: '+computer+' | '+result;
+ let list=['Rock','Paper','Scissors'];
+ let cpu=list[Math.floor(Math.random()*3)];
+ let win=user===cpu?'Draw!':
+ (user==='Rock'&&cpu==='Scissors'||user==='Paper'&&cpu==='Rock'||user==='Scissors'&&cpu==='Paper')?'You Win!':'Computer Wins!';
+ document.getElementById('rpsResult').innerText='You: '+user+' | Computer: '+cpu+' | '+win;
 }
 
 // TIC TAC TOE
-let cells=Array(9).fill('');
-let player='X',finished=false;
-function drawTTT(){
- let board=document.getElementById('board');
- board.innerHTML='';
+let cells=Array(9).fill(''),player='X',finished=false;
+function drawBoard(){
+ let b=document.getElementById('board');b.innerHTML='';
  cells.forEach((v,i)=>{
-  let b=document.createElement('button');
-  b.className='cell';b.textContent=v;
-  b.onclick=()=>moveTTT(i);
-  board.appendChild(b);
+ let btn=document.createElement('button');
+ btn.className='cell';btn.textContent=v;
+ btn.onclick=()=>move(i);b.appendChild(btn);
  });
 }
-function moveTTT(i){
+function move(i){
  if(cells[i]||finished)return;
  cells[i]=player;
- let wins=[[0,1,2],[3,4,5],[6,7,8],
- [0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
- let win=wins.some(line=>line.every(n=>cells[n]===player));
- if(win){
-  document.getElementById('tttStatus').innerText=player+' Wins!';
-  finished=true;
+ let wins=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+ if(wins.some(a=>a.every(n=>cells[n]===player))){
+ document.getElementById('tttStatus').innerText=player+' Wins!';finished=true;
  }else if(cells.every(Boolean)){
-  document.getElementById('tttStatus').innerText='Draw!';
-  finished=true;
+ document.getElementById('tttStatus').innerText='Draw!';finished=true;
  }else{
-  player=player==='X'?'O':'X';
-  document.getElementById('tttStatus').innerText="Player "+player+"'s turn";
+ player=player==='X'?'O':'X';
+ document.getElementById('tttStatus').innerText="Player "+player+"'s turn";
  }
- drawTTT();
+ drawBoard();
 }
 function resetTTT(){
  cells=Array(9).fill('');player='X';finished=false;
- document.getElementById('tttStatus').innerText="Player X's turn";
- drawTTT();
+ document.getElementById('tttStatus').innerText="Player X's turn";drawBoard();
 }
 resetTTT();
 
-// MEMORY CARDS
+// MEMORY GAME
 let symbols=['🎮','🚀','⭐','🎯','🎮','🚀','⭐','🎯'];
-let first=null,lock=false,matches=0;
 function startMemory(){
- first=null;lock=false;matches=0;
- document.getElementById('memoryStatus').innerText='Find matching pairs!';
- let items=[...symbols].sort(()=>Math.random()-.5);
+ let first=null,locked=false,matches=0;
  let grid=document.getElementById('memoryGrid');
  grid.innerHTML='';
- items.forEach(symbol=>{
-  let b=document.createElement('button');
-  b.textContent='❔';
-  b.onclick=()=>{
-   if(lock||b.textContent!=='❔')return;
-   b.textContent=symbol;
-   if(!first){first=b;return;}
-   if(first.textContent===symbol){
-    matches++;first=null;
-    if(matches===4)document.getElementById('memoryStatus').innerText='🎉 You Won!';
-   }else{
-    lock=true;let old=first;first=null;
-    setTimeout(()=>{old.textContent='❔';b.textContent='❔';lock=false},700);
-   }
-  };
-  grid.appendChild(b);
+ document.getElementById('memoryStatus').innerText='Find matching pairs!';
+ [...symbols].sort(()=>Math.random()-.5).forEach(s=>{
+ let b=document.createElement('button');b.textContent='❔';
+ b.onclick=()=>{
+ if(locked||b.textContent!=='❔')return;
+ b.textContent=s;
+ if(!first){first=b;return}
+ if(first.textContent===s){
+ matches++;first=null;
+ if(matches===4)document.getElementById('memoryStatus').innerText='🎉 YOU WON!';
+ }else{
+ locked=true;let old=first;first=null;
+ setTimeout(()=>{old.textContent='❔';b.textContent='❔';locked=false},700);
+ }
+ };
+ grid.appendChild(b);
  });
 }
 startMemory();
@@ -281,9 +198,9 @@ let secret=Math.floor(Math.random()*10)+1;
 function playGuess(){
  let g=Number(document.getElementById('guessInput').value);
  let r=document.getElementById('guessResult');
- if(!Number.isInteger(g)||g<1||g>10){r.innerText='Enter 1 to 10!';return;}
- if(g===secret){r.innerText='🎉 Correct! You Won!';}
- else{r.innerText=g<secret?'Too low! Try again.':'Too high! Try again.';}
+ if(!Number.isInteger(g)||g<1||g>10){r.innerText='Enter 1 to 10!';return}
+ if(g===secret)r.innerText='🎉 YOU WON!';
+ else r.innerText=g<secret?'Too Low! Try Again':'Too High! Try Again';
 }
 function resetGuess(){
  secret=Math.floor(Math.random()*10)+1;
@@ -292,53 +209,47 @@ function resetGuess(){
 }
 
 // SNAKE GAME
-let canvas=document.getElementById('snake');
-let ctx=canvas.getContext('2d');
-let snake,food,dir,nextDir,score,snakeTimer=null;
+let canvas=document.getElementById('canvas'),ctx=canvas.getContext('2d');
+let snake=[],food={},dir='right',next='right',score=0,timer=null;
+function drawSnake(){
+ ctx.fillStyle='#111';ctx.fillRect(0,0,300,300);
+ ctx.fillStyle='red';ctx.fillRect(food.x,food.y,10,10);
+ snake.forEach((p,i)=>{
+ ctx.fillStyle=i===0?'red':'#00cc66';
+ ctx.fillRect(p.x,p.y,9,9);
+ });
+}
 function startSnake(){
- clearInterval(snakeTimer);
+ clearInterval(timer);
  snake=[{x:150,y:150},{x:140,y:150},{x:130,y:150}];
- dir='right';nextDir='right';score=0;
+ dir='right';next='right';score=0;
  food={x:Math.floor(Math.random()*30)*10,y:Math.floor(Math.random()*30)*10};
  document.getElementById('snakeScore').innerText='Score: 0';
- drawSnake();
- snakeTimer=setInterval(tickSnake,130);
+ drawSnake();timer=setInterval(tick,130);
 }
 function changeDir(d){
  let opposite={up:'down',down:'up',left:'right',right:'left'};
- if(d!==opposite[dir])nextDir=d;
+ if(d!==opposite[dir])next=d;
 }
 document.addEventListener('keydown',e=>{
- let keys={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right'};
- if(keys[e.key]){e.preventDefault();changeDir(keys[e.key]);}
+ let k={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right'};
+ if(k[e.key]){e.preventDefault();changeDir(k[e.key]);}
 });
-function drawSnake(){
- ctx.fillStyle='#101010';ctx.fillRect(0,0,300,300);
- ctx.fillStyle='red';ctx.fillRect(food.x,food.y,10,10);
- snake.forEach((p,i)=>{
-  ctx.fillStyle=i===0?'#ff2525':'#00cc66';
-  ctx.fillRect(p.x,p.y,9,9);
- });
-}
-function tickSnake(){
- dir=nextDir;
- let head={...snake[0]};
- if(dir==='up')head.y-=10;
- if(dir==='down')head.y+=10;
- if(dir==='left')head.x-=10;
- if(dir==='right')head.x+=10;
- if(head.x<0||head.x>=300||head.y<0||head.y>=300||
- snake.some(p=>p.x===head.x&&p.y===head.y)){
-  clearInterval(snakeTimer);snakeTimer=null;
-  document.getElementById('snakeScore').innerText='Game Over! Score: '+score;
-  return;
+function tick(){
+ dir=next;let h={...snake[0]};
+ if(dir==='up')h.y-=10;
+ if(dir==='down')h.y+=10;
+ if(dir==='left')h.x-=10;
+ if(dir==='right')h.x+=10;
+ if(h.x<0||h.x>=300||h.y<0||h.y>=300||snake.some(p=>p.x===h.x&&p.y===h.y)){
+ clearInterval(timer);timer=null;
+ document.getElementById('snakeScore').innerText='GAME OVER! Score: '+score;return;
  }
- snake.unshift(head);
- if(head.x===food.x&&head.y===food.y){
-  score++;document.getElementById('snakeScore').innerText='Score: '+score;
-  do{
-   food={x:Math.floor(Math.random()*30)*10,y:Math.floor(Math.random()*30)*10};
-  }while(snake.some(p=>p.x===food.x&&p.y===food.y));
+ snake.unshift(h);
+ if(h.x===food.x&&h.y===food.y){
+ score++;document.getElementById('snakeScore').innerText='Score: '+score;
+ do{food={x:Math.floor(Math.random()*30)*10,y:Math.floor(Math.random()*30)*10}}
+ while(snake.some(p=>p.x===food.x&&p.y===food.y));
  }else snake.pop();
  drawSnake();
 }
