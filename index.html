@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zayan Gaming Zone</title>
+<style>
+body {
+  background: #090909;
+  color: white;
+  font-family: Arial;
+  text-align: center;
+  margin: 0;
+}
+header {
+  background: #e60000;
+  padding: 25px 10px;
+}
+h1 { margin: 0; }
+h2 { color: red; }
+.games {
+  background: #1b1b1b;
+  margin: 20px;
+  padding: 25px;
+  border-radius: 15px;
+}
+button {
+  background: red;
+  color: white;
+  border: none;
+  padding: 13px 25px;
+  border-radius: 8px;
+  font-size: 16px;
+}
+footer {
+  padding: 20px;
+  color: gray;
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>🔥 ZAYAN GAMING ZONE 🔥</h1>
+<p>Welcome To My Gaming World</p>
+</header>
+
+<h2>🎮 PLAY GAMES</h2>
+
+<div class="games">
+<h3>🎲 Number Guess Game</h3>
+<p>Guess a number between 1 and 10!</p>
+<input id="guess" type="number" min="1" max="10">
+<br><br>
+<button onclick="play()">PLAY NOW</button>
+<p id="result"></p>
+</div>
+
+<div class="games">
+<h3>🎮 More Games Coming Soon</h3>
+<p>Stay tuned for exciting games!</p>
+</div>
+
+<footer>
+© 2026 Zayan Gaming Zone
+</footer>
+
+<script>
+function play() {
+ let n = Math.floor(Math.random()*10)+1;
+ let g = Number(document.getElementById("guess").value);
+ let r = document.getElementById("result");
+ if(g < 1 || g > 10) {
+   r.innerText = "Enter a number from 1 to 10!";
+ } else if(g === n) {
+   r.innerText = "🎉 You Won!";
+ } else {
+   r.innerText = "Try Again! Number was " + n;
+ }
+}
+</script>
+
+</body>
+</html>
