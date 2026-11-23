@@ -5,7 +5,39 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Zayan Gaming Zone</title>
-<style>
+<
+.profile-box{
+ background:#191919;
+ border:1px solid red;
+ border-radius:15px;
+ padding:22px;
+ max-width:550px;
+ margin:25px auto;
+ text-align:center;
+}
+.profile-box h2{color:#ff2929}
+.profile-box input{
+ width:75%;
+ margin:8px;
+}
+.avatar{
+ font-size:55px;
+ margin:10px;
+}
+.coins{
+ color:#ffd700;
+ font-size:25px;
+ font-weight:bold;
+}
+.leader-row{
+ background:#292929;
+ padding:12px;
+ margin:8px 0;
+ border-radius:8px;
+ display:flex;
+ justify-content:space-between;
+}
+/style>
 *{box-sizing:border-box}
 body{margin:0;background:#080808;color:white;font-family:Arial;text-align:center}
 header{background:linear-gradient(120deg,#700000,red);padding:28px 10px}
@@ -116,7 +148,26 @@ footer{padding:25px;color:#888}
 <p>Enjoy free games and have fun.</p>
 </section>
 
-<footer>© 2026 Zayan Gaming Zone<br>Made with ❤️ by Zayan</footer>
+<
+<section class="profile-box" id="profile">
+<h2>👤 PLAYER PROFILE</h2>
+<div class="avatar" id="avatar">🎮</div>
+<h3 id="playerName">Guest Player</h3>
+<input id="nameInput" placeholder="Enter Your Name">
+<br>
+<button onclick="saveProfile()">SAVE PROFILE</button>
+
+<p class="coins">🪙 <span id="coinCount">0</span> COINS</p>
+<button onclick="dailyReward()">🎁 CLAIM DAILY REWARD</button>
+<p id="rewardMessage"></p>
+</section>
+
+<section class="profile-box" id="leaderboard">
+<h2>🏆 LEADERBOARD</h2>
+<div id="leaderList"></div>
+<p style="color:gray">Local device leaderboard</p>
+</section>
+/footer>© 2026 Zayan Gaming Zone<br>Made with ❤️ by Zayan</footer>
 
 <script>
 function openGame(id){
@@ -254,6 +305,59 @@ function tick(){
  drawSnake();
 }
 drawSnake();
+
+let coins = Number(localStorage.getItem('zayanCoins') || 0);
+let player = localStorage.getItem('zayanName') || 'Guest Player';
+
+function updateProfile(){
+ document.getElementById('coinCount').innerText=coins;
+ document.getElementById('playerName').innerText=player;
+ document.getElementById('nameInput').value=
+ player==='Guest Player'?'':player;
+ updateLeaderboard();
+}
+
+function saveProfile(){
+ let name=document.getElementById('nameInput').value.trim();
+ if(!name){
+  alert('Please enter your name!');
+  return;
+ }
+ player=name.slice(0,20);
+ localStorage.setItem('zayanName',player);
+ updateProfile();
+ alert('Profile Saved!');
+}
+
+function dailyReward(){
+ let today=new Date().toDateString();
+ if(localStorage.getItem('zayanReward')===today){
+  document.getElementById('rewardMessage').innerText=
+  'You already claimed today reward!';
+  return;
+ }
+ coins+=10;
+ localStorage.setItem('zayanCoins',coins);
+ localStorage.setItem('zayanReward',today);
+ document.getElementById('rewardMessage').innerText=
+ '🎉 You received 10 coins!';
+ updateProfile();
+}
+
+function updateLeaderboard(){
+ let list=document.getElementById('leaderList');
+ list.innerHTML='';
+ let row=document.createElement('div');
+ row.className='leader-row';
+ let name=document.createElement('span');
+ name.textContent='🥇 '+player;
+ let score=document.createElement('b');
+ score.textContent='🪙 '+coins;
+ row.append(name,score);
+ list.appendChild(row);
+}
+
+updateProfile();
 </script>
 </body>
 </html>
