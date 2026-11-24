@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zayan Gaming Zone</title>
+<style>
+body {
+  background: #080808;
+  color: white;
+  font-family: Arial;
+  text-align: center;
+  margin: 0;
+}
+header {
+  background: #171717;
+  padding: 25px;
+  border-bottom: 2px solid red;
+}
+h1 { color: red; }
+.game {
+  background: #202020;
+  margin: 20px;
+  padding: 25px;
+  border-radius: 15px;
+}
+button {
+  background: red;
+  color: white;
+  border: 0;
+  padding: 12px 25px;
+  border-radius: 8px;
+}
+footer {
+  padding: 20px;
+  color: gray;
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>🎮 ZAYAN GAMING ZONE</h1>
+<p>Welcome To My Gaming World!</p>
+</header>
+
+<div class="game">
+<h2>🎯 Tic Tac Toe</h2>
+<p>Play fun games online!</p>
+<button onclick="location.href='https://playtictactoe.org/'">
+Play Now
+</button>
+</div>
+
+<div class="game">
+<h2>🐍 Snake Game</h2>
+<p>Enjoy the classic snake game!</p>
+<button onclick="location.href='https://playsnake.org/'">
+Play Now
+</button>
+</div>
+
+<footer>
+<p>© 2026 Zayan Gaming Zone</p>
+</footer>
+
+</body>
+  </html>
+  
