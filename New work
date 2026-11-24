@@ -1,0 +1,229 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zayan Gaming Zone</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#080808;color:white;
+ font-family:Arial,sans-serif;
+}
+header{
+ background:#151515;padding:18px;
+ display:flex;justify-content:space-between;
+ align-items:center;border-bottom:2px solid red;
+}
+.logo{color:#ff3030;font-size:21px;font-weight:bold}
+nav a{color:white;text-decoration:none;margin:8px}
+.hero{text-align:center;padding:65px 15px;
+ background:linear-gradient(140deg,#240000,#090909,#200000)}
+.hero h1{font-size:38px;color:#ff3030}
+.hero p{color:#ccc}
+.btn{
+ background:#e60000;color:white;border:0;
+ padding:12px 22px;border-radius:7px;
+ cursor:pointer;font-weight:bold;margin:5px;
+}
+section{padding:30px 15px;max-width:950px;margin:auto}
+h2{color:#ff3030;text-align:center}
+.games{
+ display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+ gap:16px;
+}
+.card{
+ background:#171717;padding:22px;border:1px solid #444;
+ border-radius:12px;text-align:center;
+}
+.card .emoji{font-size:42px}
+.gamebox{
+ display:none;background:#171717;padding:20px;
+ border:1px solid red;border-radius:12px;
+ text-align:center;margin-top:20px;
+}
+input{
+ padding:12px;background:#090909;color:white;
+ border:1px solid red;border-radius:6px;width:130px;
+}
+#board{
+ display:grid;grid-template-columns:repeat(3,85px);
+ justify-content:center;gap:6px;margin:20px auto;
+}
+.cell{
+ height:85px;background:#292929;color:red;
+ font-size:35px;border:1px solid #555;
+ border-radius:8px;
+}
+footer{
+ text-align:center;background:#151515;
+ padding:22px;color:#aaa;border-top:2px solid red;
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">🎮 ZAYAN GAMING</div>
+<nav>
+<a href="#home">Home</a>
+<a href="#games">Games</a>
+</nav>
+</header>
+
+<div class="hero" id="home">
+<h1>ZAYAN GAMING ZONE</h1>
+<p>Welcome to my gaming world!</p>
+<p>Play Games. Have Fun. Enjoy!</p>
+<a href="#games"><button class="btn">PLAY NOW 🎮</button></a>
+</div>
+
+<section id="games">
+<h2>🔥 OUR GAMES</h2>
+<div class="games">
+
+<div class="card">
+<div class="emoji">❌</div>
+<h3>Tic Tac Toe</h3>
+<p>Play X and O</p>
+<button class="btn" onclick="openGame('tic')">PLAY</button>
+</div>
+
+<div class="card">
+<div class="emoji">✊</div>
+<h3>Rock Paper Scissors</h3>
+<p>Beat the computer</p>
+<button class="btn" onclick="openGame('rps')">PLAY</button>
+</div>
+
+<div class="card">
+<div class="emoji">🔢</div>
+<h3>Guess The Number</h3>
+<p>Find the secret number</p>
+<button class="btn" onclick="openGame('guess')">PLAY</button>
+</div>
+
+</div>
+
+<div class="gamebox" id="tic">
+<h2>TIC TAC TOE</h2>
+<p id="ticstatus">Player X turn</p>
+<div id="board"></div>
+<button class="btn" onclick="resetTic()">RESTART</button>
+</div>
+
+<div class="gamebox" id="rps">
+<h2>ROCK PAPER SCISSORS</h2>
+<p>Choose your move!</p>
+<button class="btn" onclick="playRPS('Rock')">✊ Rock</button>
+<button class="btn" onclick="playRPS('Paper')">✋ Paper</button>
+<button class="btn" onclick="playRPS('Scissors')">✌ Scissors</button>
+<p id="rpsresult">Result will appear here</p>
+</div>
+
+<div class="gamebox" id="guess">
+<h2>GUESS THE NUMBER</h2>
+<p>Guess a number between 1 and 20</p>
+<input id="number" type="number" min="1" max="20">
+<button class="btn" onclick="checkNumber()">GUESS</button>
+<p id="guessresult">Good luck!</p>
+<button class="btn" onclick="newNumber()">NEW GAME</button>
+</div>
+</section>
+
+<footer>
+<h3>🎮 ZAYAN GAMING ZONE</h3>
+<p>Made with ❤️ by Zayan</p>
+<p>© 2026 All Rights Reserved</p>
+</footer>
+
+<script>
+function openGame(id){
+ document.querySelectorAll('.gamebox').forEach(
+  box=>box.style.display='none'
+ );
+ document.getElementById(id).style.display='block';
+ document.getElementById(id).scrollIntoView({behavior:'smooth'});
+}
+
+let cells=Array(9).fill('');
+let player='X',finished=false;
+const wins=[
+[0,1,2],[3,4,5],[6,7,8],
+[0,3,6],[1,4,7],[2,5,8],
+[0,4,8],[2,4,6]
+];
+
+function drawTic(){
+ const board=document.getElementById('board');
+ board.innerHTML='';
+ cells.forEach((v,i)=>{
+  let b=document.createElement('button');
+  b.className='cell';
+  b.textContent=v;
+  b.onclick=()=>move(i);
+  board.appendChild(b);
+ });
+}
+function move(i){
+ if(cells[i]||finished)return;
+ cells[i]=player;
+ let win=wins.some(w=>w.every(x=>cells[x]===player));
+ if(win){
+  document.getElementById('ticstatus').textContent=player+' WINS!';
+  finished=true;
+ }else if(cells.every(Boolean)){
+  document.getElementById('ticstatus').textContent='DRAW!';
+  finished=true;
+ }else{
+  player=player==='X'?'O':'X';
+  document.getElementById('ticstatus').textContent='Player '+player+' turn';
+ }
+ drawTic();
+}
+function resetTic(){
+ cells=Array(9).fill('');
+ player='X';finished=false;
+ document.getElementById('ticstatus').textContent='Player X turn';
+ drawTic();
+}
+drawTic();
+
+function playRPS(user){
+ let choices=['Rock','Paper','Scissors'];
+ let cpu=choices[Math.floor(Math.random()*3)];
+ let result='';
+ if(user===cpu)result='DRAW!';
+ else if(
+ (user==='Rock'&&cpu==='Scissors')||
+ (user==='Paper'&&cpu==='Rock')||
+ (user==='Scissors'&&cpu==='Paper')
+ )result='YOU WIN! 🎉';
+ else result='COMPUTER WINS!';
+ document.getElementById('rpsresult').textContent=
+ 'You: '+user+' | Computer: '+cpu+' — '+result;
+}
+
+let secret=Math.floor(Math.random()*20)+1;
+function checkNumber(){
+ let n=Number(document.getElementById('number').value);
+ let out=document.getElementById('guessresult');
+ if(!Number.isInteger(n)||n<1||n>20){
+  out.textContent='Enter a number from 1 to 20';
+ }else if(n===secret){
+  out.textContent='CORRECT! YOU WIN 🎉';
+ }else if(n<secret){
+  out.textContent='Too low! Try again.';
+ }else{
+  out.textContent='Too high! Try again.';
+ }
+}
+function newNumber(){
+ secret=Math.floor(Math.random()*20)+1;
+ document.getElementById('number').value='';
+ document.getElementById('guessresult').textContent='New game started!';
+}
+</script>
+</body>
+</html>
